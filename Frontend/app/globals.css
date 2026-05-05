@@ -1,0 +1,174 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #111111;
+  --card-foreground: #ffffff;
+  --popover: #111111;
+  --popover-foreground: #ffffff;
+  --primary: #C9A84C;
+  --primary-foreground: #0a0a0a;
+  --secondary: #161616;
+  --secondary-foreground: #ffffff;
+  --muted: #161616;
+  --muted-foreground: #A0A0A0;
+  --accent: #FF2D2D;
+  --accent-foreground: #ffffff;
+  --destructive: #FF2D2D;
+  --destructive-foreground: #ffffff;
+  --border: #222222;
+  --input: #161616;
+  --ring: #C9A84C;
+  --gold: #C9A84C;
+  --neon-red: #FF2D2D;
+  --surface: #111111;
+  --surface-2: #161616;
+  --radius: 0.25rem;
+}
+
+@theme inline {
+  --font-sans: 'Rajdhani', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    cursor: auto;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Neon glow animations */
+@keyframes neonPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px #FF2D2D) drop-shadow(0 0 10px #FF2D2D) drop-shadow(0 0 20px #FF2D2D);
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 2px #FF2D2D) drop-shadow(0 0 6px #FF2D2D) drop-shadow(0 0 12px rgba(255,45,45,0.6));
+    opacity: 0.85;
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.4; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes goldLineExpand {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.neon-svg {
+  animation: neonPulse 2.5s ease-in-out infinite, floatGentle 4s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Gold divider line */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+  opacity: 0.4;
+}
+
+/* Service card hover line */
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #C9A84C;
+  transition: width 0.4s ease;
+}
+
+.service-card:hover::after {
+  width: 100%;
+}
+
+/* Ocultar scrollbar nativo manteniendo el scroll funcional */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile cursor disable */
+@media (hover: none) {
+  body {
+    cursor: auto;
+  }
+}
